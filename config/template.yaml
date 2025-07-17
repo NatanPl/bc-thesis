@@ -1,0 +1,65 @@
+# Block-level metadata
+block_name: <block_name>
+output_dir: runs
+dataset: data/datasets/<dataset_name>.h5
+
+# Default experiment settings (can be overridden per-experiment) --
+defaults:
+  impute_test: true # whether to impute missing values in the test set
+  model: lstm|gru|informer|spacetimeformer
+  # model hyperparameters
+  model_kwargs:
+    # lstm/gru hyperparameters
+    # hidden_dim: 256
+    # num_layers: 2
+    # dropout: 0.1
+    # informer hyperparameters
+    # ...
+    # spacetimeformer hyperparameters
+    # ...
+  # imputation strategy
+  imputation: mice|mean|linear|none
+  # scaling strategy
+  scaling: robust|zscore|none
+  # seed
+  seed: 42
+  # batch size
+  batch_size: 32
+  # window configuration
+  window:
+    window: 5
+    horizon: 1
+    stride: 1
+
+# Splitting policy
+split:
+  method: country_specified|country_percentage
+
+  # Parameters for method=stratified
+  seed: 42
+  test_ratio: 0.20
+  val_ratio: 0.10
+
+  # Parameters for method=explicit, replace with actual dataset countries
+  test_countries:  [USA, FRA, CAN] 
+  val_countries:   [DEU, AUS]
+
+# experiment configurations
+experiments:
+  
+  - name: <experiment_name> # mandatory
+    # optional
+    model: lstm|gru|informer|spacetimeformer # can be in defaults
+    imputation: mean|linear|mice|none
+    scaling: robust|zscore|none
+    seed: 42
+    window:
+      window: 5
+      horizon: 1
+      stride: 1
+    model_kwargs:
+      # ...
+    batch_size: 32
+  
+  - name: <experiment_two>
+    # ...
