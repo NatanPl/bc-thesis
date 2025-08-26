@@ -1,4 +1,4 @@
-pytorch-lightning==2.5.*
+lightning==2.5.*
 numpy==2.3.*
 pandas==2.3.*
 wbgapi==1.0.12
