@@ -287,7 +287,7 @@ def run_baseline_multiple_seeds(train_raw, val_raw, test_raw,
 
 
 def experimentA():
-    DATA = "data/datasets/oecd_2000_80p_t.h5"
+    DATA = "data/datasets/oecd_2000_80_t.h5"
     dataset = RawDataset.load(DATA)
     imputation_methods = ["mice", "linear", "mean"]
     scaling_methods = ["zscore", "robust"]
@@ -324,9 +324,9 @@ def experimentA():
 
 
 def experimentB():
-    DATA70 = "data/datasets/oecd_2000_70p.h5"
-    DATA80 = "data/datasets/oecd_2000_80p.h5"
-    DATA90 = "data/datasets/oecd_2000_90p.h5"
+    DATA70 = "data/datasets/oecd_2000_70.h5"
+    DATA80 = "data/datasets/oecd_2000_80.h5"
+    DATA90 = "data/datasets/oecd_2000_90.h5"
     imputer = 'linear'
     scaler = 'robust'
     results = []
@@ -358,7 +358,7 @@ def experimentB():
 
 
 def experimentC():
-    DATA = "data/datasets/oecd_2000_80p.h5"
+    DATA = "data/datasets/oecd_2000_80.h5"
     models = [
         (Informer, {
             "model_dim": 256,
