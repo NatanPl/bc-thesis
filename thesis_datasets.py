@@ -62,8 +62,8 @@ def download_raw_data():
 
     dataset.save(filepath="data/datasets/oecd_2000_raw", format="hdf5")
 
-def preprocess_dataset(name: str, p_value: float = 0.8):
-    raw_dataset = Dataset.load("oecd_2000_raw.h5")
+def preprocess_dataset(name: str, p_value: float = 0.8, folder_path: str = "data/datasets/", raw: str = "oecd_2000_raw") -> Dataset:
+    raw_dataset = Dataset.load(f"{folder_path}/{raw}.h5")
     original_indicator_count = raw_dataset.n_indicators()
     print(f"Raw dataset contains {original_indicator_count} indicators.")
     print(f"Raw dataset contains {raw_dataset.n_countries()} countries and {raw_dataset.n_years()} years.")
@@ -110,11 +110,11 @@ def preprocess_dataset(name: str, p_value: float = 0.8):
 
     preprocessed_dataset = exclude_indicators_from_dataset(preprocessed_dataset, list(removed_indicators))
 
-    preprocessed_dataset.save(name, format='hdf5')
+    preprocessed_dataset.save(f"{folder_path}/{name}", format='hdf5')
 
     return preprocessed_dataset
 
-def ensure_test_complete(dataset: Dataset, name: str):
+def ensure_test_complete(dataset: Dataset, name: str, folder_path: str = "data/datasets/"):
     # iterate over all countries, and find the country with least amount of missing values, to use as test set
     country_missing_values = {} # country -> (total missing values ratio, number of indicators with missing values)
     for country in dataset.countries:
@@ -147,7 +147,7 @@ def ensure_test_complete(dataset: Dataset, name: str):
     # print(indicators_with_missing_values)
     preprocessed_dataset = exclude_indicators_from_dataset(dataset, list(indicators_with_missing_values))
     # print(f"Remaining indicators after excluding those with missing values in the least missing countries: {preprocessed_dataset.n_indicators()}")
-    preprocessed_dataset.save("name", format='hdf5')
+    preprocessed_dataset.save(f"{folder_path}/{name}", format='hdf5')
 
 def preprocess_data():
     dataset_70 = preprocess_dataset("oecd_2000_70", p_value=0.7)

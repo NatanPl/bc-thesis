@@ -512,7 +512,9 @@ class Dataset:
         if not HDF5_AVAILABLE:
             raise ImportError(
                 "h5py package is required for HDF5 serialization")
-
+        dirpath = os.path.dirname(filepath)
+        if dirpath and not os.path.exists(dirpath):
+            os.makedirs(dirpath, exist_ok=True)
         with h5py.File(filepath, 'w') as f:
             # Store data array
             f.create_dataset('data', data=self.data)
