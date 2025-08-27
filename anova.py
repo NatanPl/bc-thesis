@@ -5,10 +5,12 @@ from statsmodels.formula.api import ols
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 from scipy import stats
 from statsmodels.stats.multitest import multipletests
+import os
 
 
 class Base:
     def __init__(self, results=None, from_file=None):
+        os.makedirs("tables", exist_ok=True)
         self.results = []
         if results is not None:
             self.results = results
